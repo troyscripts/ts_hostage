@@ -1,7 +1,16 @@
--- Vereist ts_bridge 0.0.3, vóór dit script starten. Teksten: locales/nl.lua.
+-- Vereist ts_bridge 0.0.5, vóór dit script starten. Teksten: locales/nl.lua.
 Config = {}
 -- Alleen verhogen wanneer de CONFIG-indeling wijzigt, niet bij iedere scriptupdate.
-Config.Version = '1.1.8'
+Config.Version = '1.1.9'
+-- Dader: first person tijdens de actieve gijzeling, via gedeeld camerabeheer.
+Config.Camera = {
+    ForceFirstPersonOnFoot = true,
+    ForceFirstPersonInVehicle = true,
+    Restore = true,
+    RestoreDelayMs = 50
+}
+-- Pauzeer alleen de antipunch-noodrem die ped-taken afbreekt. Combat blijft geblokkeerd.
+Config.AntipunchCompatibility = true
 Config.RequireAimOnFoot = true -- alleen sneltoets E; target/radial zijn bewuste keuzes
 Config.NotificationCooldownMs = 5000 -- alle gewone meldingen samen
 Config.Radial = { Enabled = true } -- ox_lib; zet uit bij een eigen radialmenu

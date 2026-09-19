@@ -3,7 +3,7 @@ TSBridgeGuard = { ready = false, failed = false }
 local G = TSBridgeGuard
 local resource = GetCurrentResourceName()
 local server = IsDuplicityVersion()
-local required = server and { 'AlertJobs', 'SendWebhook', 'CheckConfigVersion' } or { 'CheckConfigVersion', 'RegisterRadialMenu', 'RemoveRadialMenu', 'Notify', 'IsDead', 'GetTargetResource', 'AddGlobalPlayer', 'AddGlobalVehicle' }
+local required = server and { 'AlertJobs', 'SendWebhook', 'CheckConfigVersion' } or { 'RequestFirstPerson', 'ReleaseFirstPerson', 'SetCombatContext', 'CheckConfigVersion', 'RegisterRadialMenu', 'RemoveRadialMenu', 'Notify', 'IsDead', 'GetTargetResource', 'AddGlobalPlayer', 'AddGlobalVehicle' }
 local function fail(reason)
     G.ready, G.failed = false, true
     print((TSL('bridge_check_troy_scripts_gestopt_ts_bridge_controle_mislukt_installeer')):format(resource, reason))
@@ -23,12 +23,12 @@ function G.Await()
         Wait(100)
     until GetGameTimer() >= deadline
     if not status then return fail(TSL('bridge_check_ontbreekt_niet_gestart_of_getstatus_ontbreekt')) end
-    if status.api ~= 1 or type(status.version) ~= 'string'
+    if status.ready == false or status.api ~= 1 or type(status.version) ~= 'string'
         or status.side ~= (server and 'server' or 'client') or type(status.features) ~= 'table' then
         return fail(TSL('bridge_check_ongeldige_api_of_verkeerde_client_server_versie'))
     end
-    local major, minor, patch = status.version:match('^(%d+)%.(%d+)%.(%d+)')
-    if not major or (tonumber(major) == 0 and tonumber(minor) == 0 and tonumber(patch) < 3) then
+    local major, minor, patch = status.version:match('^(%d+)%.(%d+)%.(%d+)$')
+    if not major or (tonumber(major) == 0 and tonumber(minor) == 0 and tonumber(patch) < 5) then
         return fail(TSL('bridge_check_minimum_version'))
     end
     for _, feature in ipairs(required) do

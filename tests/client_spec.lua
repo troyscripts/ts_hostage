@@ -81,6 +81,8 @@ function HasAnimDictLoaded() return true end
 function SetTimeout() end
 function TaskPlayAnim() end
 Bridge.BusyChanged = function() end
+local cameraSession
+Bridge.UpdateCamera = function(s) cameraSession=s end
 source = 65535; vehicle = false; aiming = false
 local hash = 2578778090
 events['ts_hostage:prepare'](99, 'captor', 2, 'blade', hash, false)
@@ -89,3 +91,5 @@ advance(); public.ExecuteHostage()
 assert(requests[#requests][1] == 'ts_hostage:action' and requests[#requests][3] == 'execute')
 public.ReleaseHostage(); assert(requests[#requests][3] == 'release')
 print('PASS: active hostage execute/release without aiming')
+
+assert(cameraSession and cameraSession.active and cameraSession.role == "captor")

@@ -214,6 +214,7 @@ RegisterNetEvent('ts_hostage:begin', function(id)
         TriggerServerEvent('ts_hostage:cancel', id); return
     end
     s.active, s.started = true, GetGameTimer()
+    Bridge.UpdateCamera(s)
     if s.role == 'victim' then
         HandsUp.Lower() -- stop eigen status VOORDAT de hostagepose start
         s.previousWeapon = HostageWeaponHash(GetSelectedPedWeapon(ped))
@@ -277,6 +278,7 @@ CreateThread(function()
         if not s then Wait(200) else
             Wait(0)
             local ped = PlayerPedId()
+            Bridge.UpdateCamera(s)
             DisablePlayerFiring(PlayerId(), true)
             if s.role == 'victim' then
                 DisableAllControlActions(0)

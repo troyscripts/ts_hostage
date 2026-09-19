@@ -15,7 +15,7 @@ TSBridgeGuard = { Await = function() return true end }
 Config = {}; dofile('config_check.lua')
 assert(Config.Version == nil, 'do not pretend old config has been updated')
 assert(Config.RequireAimOnFoot and Config.NotificationCooldownMs == 5000 and Config.Radial.Enabled)
-Config = { Version = '1.1.8', RequireAimOnFoot = false, NotificationCooldownMs = 8000, Radial = { Enabled = false } }
+Config = { Version = '1.1.9', RequireAimOnFoot = false, NotificationCooldownMs = 8000, Radial = { Enabled = false } }
 dofile('config_check.lua')
 assert(not Config.RequireAimOnFoot and Config.NotificationCooldownMs == 8000 and not Config.Radial.Enabled)
 print('PASS: old config defaults and preserved user choices')

@@ -1,0 +1,20 @@
+Alleen gewijzigde en nieuwe bestanden voor ts_hostage 1.1.9.
+Kopieer over de bestaande gelijknamige resourcemap; laat overige bestanden staan.
+Geen bestanden verwijderen. Lees de installatiehandleiding in dit pakket.
+
+BRIDGE-OVERDRACHT.md
+CHANGELOG.md
+README.md
+TESTRESULTATEN.txt
+UPDATE-INSTALLATIE.md
+bridge.lua
+bridge_check.lua
+client.lua
+config.lua
+config_check.lua
+fxmanifest.lua
+locales/nl.lua
+tests/client_spec.lua
+tests/config_spec.lua
+tests/guard_spec.lua
+version.json

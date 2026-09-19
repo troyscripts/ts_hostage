@@ -1,29 +1,34 @@
-# ts_hostage 1.1.8 bijwerken
+# Update ts_hostage 1.1.8 → 1.1.9
+
+Deze ZIP bevat alleen gewijzigde/nieuwe bestanden voor een bestaande 1.1.8-installatie.
+Kopieer de map ts_hostage over de bestaande map; laat overige bestanden staan.
+Er hoeven geen bestanden verwijderd te worden.
 
 1. Maak een backup en stop ts_hostage wanneer niemand in een gijzeling zit.
-2. Kopieer de map ts_hostage uit deze ZIP over je bestaande resource met die naam.
-   Bewaar je eigen server_config.lua (webhooks/politie-instellingen).
-3. Config.lua bijwerken: **JA**, vereiste Config.Version is '1.1.8'. Neem eigen
-   instellingen over in de nieuwe config, of voeg Version, RequireAimOnFoot,
-   NotificationCooldownMs en Radial toe uit de meegeleverde config.
-   Verhoog het configversienummer pas nadat je de velden hebt overgenomen.
-4. Neem eigen vertalingen over; behoud de nieuwe sleutels in locales/nl.lua.
-5. Start ts_hostage nadat ox_lib en ts_bridge 0.0.3 of nieuwer gestart zijn.
-6. Controleer scriptversie 1.1.8 en de configmelding in de serverconsole.
+2. Werk de bridge bij naar 0.0.5 volgens de gezamenlijke stop/startvolgorde.
+3. Kopieer deze update over de bestaande ts_hostage-resource.
+4. Neem eigen instellingen over in de nieuwe config.lua. Nieuwe velden:
+   Config.Camera en Config.AntipunchCompatibility. Config.Version wordt '1.1.9'.
+   Neem eigen aanpassingen aan locales/nl.lua over met behoud van de nieuwe sleutel.
+5. Installeer ook antipunch 1.8.2 voor de samenwerking, als je antipunch gebruikt.
+6. Start eerst providers/ox_lib, dan ts_bridge, ts_antipunch en ts_hostage.
 
-server_config.lua heeft geen nieuwe velden: vervangen is niet nodig.
-Deze bijgewerkte aansluiting vereist ts_bridge 0.0.3: werk de bridge ook bij. Deze ZIP bevat alleen
-het volledige ts_hostage-script; geen bridge of andere resources.
+server_config.lua blijft staan: webhooks en politie-instellingen wijzigen niet.
+Geen databasewijziging. Handen-omhoog, wapens en de mespose blijven behouden.
 
-Live controle met twee spelers:
-- E zonder richten: geen melding. Richten + E: geldige poging of één afwijzing.
-- Herhaald E: geen stapelende meldingen; standaard 5 seconden tussen meldingen.
-- Ox_target te voet blijft zonder richten bruikbaar.
-- Radialmenu: Gijzelen, Loslaten en Omleggen testen; omleggen pas na 1,5 seconde.
-- Te voet na vastpakken richtknop loslaten: loslaten/omleggen blijven werken.
-- Auto: third person + E/radial blijft stil; first person bijrijder kan bestuurder gijzelen.
-- Slachtoffer moet te voet nog steeds de eigen handen-omhoog-functie gebruiken.
-- Herstart resource: geen dubbel radialitem; stoppen verwijdert alleen het eigen item.
+Standaard blijft de dader tijdens een actieve gijzeling in first person:
+- Config.Camera.ForceFirstPersonOnFoot = true
+- Config.Camera.ForceFirstPersonInVehicle = true
+- Config.AntipunchCompatibility = true (pauzeert alleen de melee-noodrem)
 
-Gebruik je een ander radialmenu dan ox_lib, zet Config.Radial.Enabled uit en koppel
-je menu aan de exports uit README.md. Geen databasewijziging nodig.
+De bestaande Config.Vehicle.RequireFirstPerson blijft de camera bij starten
+controleren: de dader kiest vóór het starten zelf first person in de auto.
+Config.Camera regelt het vasthouden van die camera tijdens een actieve sessie.
+Het slachtoffer krijgt geen nieuwe cameraforcering.
+
+Live testen met twee spelers: te voet/auto, met/zonder vastgehouden richtknop,
+loslaten en omleggen, cameraherstel, herladen/melee na loslaten en resource-stop.
+Controller en de gebruikte ambulance-/animatiescripts ook meenemen.
+
+Upload voor GitHub ook version.json met 1.1.9 en het nieuwe manifest, samen met
+alle gewijzigde resourcebestanden. Deze ZIP publiceert niets automatisch.

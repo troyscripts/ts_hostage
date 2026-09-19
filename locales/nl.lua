@@ -111,5 +111,7 @@ Locales['nl'] = {
     ['webhooks_reden'] = 'Reden',
     ['webhooks_troyscripts_sessie'] = 'Sessie ',
     ['webhooks_screenshot_vanuit_gijzelnemer'] = ' | Screenshot vanuit gijzelnemer',
-    ['bridge_check_minimum_version'] = 'ts_bridge 0.0.3 of nieuwer vereist (API 1)',
+    ['bridge_check_minimum_version'] = 'ts_bridge 0.0.5 of nieuwer vereist (API 1)',
 }
+
+Locales.nl.camera_invalid_setting = '[ts_hostage] Ongeldige Config.Camera.%s; standaard toegepast: %s.'

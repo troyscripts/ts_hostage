@@ -1,3 +1,17 @@
+Controle versie 1.1.9
+
+- Lua 5.4-syntaxis van de samengevoegde resources gecontroleerd.
+- Echte bridgecamera, antipunch-client en hostage-adapter samen met gesimuleerde
+  FiveM-functies getest: beide vrijgavevolgordes, originele first person,
+  vertraging/snel opnieuw richten, configmodi, pedwissel, overlijden, voertuig,
+  resource-stop en gerichte noodrempauze. Combat en herladen apart gecontroleerd.
+- Antipunch-configvalidatie, behoud eigen keuzes, centrale updateaanvraag en
+  dependencycheck (versie/functies/status) getest.
+- Bestaande centrale updatecheck en aangepaste hostage-client/config/guardtests getest.
+- Geen live FiveM-server, controller, animatiekwaliteit of externe bezorging getest.
+
+Historische testresultaten van eerdere versies:
+
 VALIDATIE — ts_bridge 0.0.3 + ts_hostage 1.1.8
 Lua 5.4 syntaxcontrole van alle Lua-bestanden: geslaagd.
 Bridge: alle 7 testscripts geslaagd (bestaande 6 plus shared_ui_spec.lua).

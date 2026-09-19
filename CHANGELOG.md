@@ -1,5 +1,18 @@
 # Changelog — ts_hostage
 
+## 1.1.9 — Gedeeld camerabeheer met antipunch
+
+- Vereist ts_bridge 0.0.5; controleert de nieuwe camera-/combatfuncties.
+- Dader standaard in first person tijdens actieve gijzeling, te voet/in auto.
+- Config.Camera maakt beide cameramodi en herstelgedrag aanpasbaar.
+- Config.AntipunchCompatibility pauzeert alleen de antipunch-melee-noodrem.
+- Schiet-/slagblokkeringen blijven actief; geen antipunch-afhankelijkheid toegevoegd.
+- Cameraverzoek en combatcontext vrijgeven bij sessie-einde en resource-stop.
+- Voertuig-startcontrole RequireFirstPerson blijft afzonderlijk bestaan.
+- Configschema naar 1.1.9; nieuwe velden krijgen gevalideerde standaardwaarden.
+- Documentatie, Nederlandse meldingen, manifest en version.json bijgewerkt.
+- Lokaal gesimuleerd getest; geen live FiveM-test.
+
 ## 1.1.8 — Meldingen, radialmenu en configversie
 - GitHub-updatecontrole, downloadlink en documentatie bijgewerkt naar troyscripts/ts_hostage.
 - Sneltoets vereist te voet eerst richten; zonder richten geen poging of melding.

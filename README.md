@@ -1,6 +1,6 @@
 # TroyScripts — ts_hostage
 
-**Versie 1.1.8** (vereist ts_bridge 0.0.3) · FiveM · Gijzelingen te voet en in voertuigen
+**Versie 1.1.9** (vereist ts_bridge 0.0.5) · FiveM · Gijzelingen te voet en in voertuigen
 
 Met `ts_hostage` kunnen spelers een andere speler gijzelen, loslaten of omleggen.
 De resource bevat een eigen handen-omhoog-functie, politiemeldingen met locatie
@@ -22,7 +22,7 @@ het script niet actief. Herstart na een bridgeherstart ook ts_hostage; lees de u
 
 ESX-jobcontrole, politiemeldingen, targetregistratie, webhooktransport en screenshots lopen
 via ts_bridge. Gewone spelersmeldingen, meldingslimieten en het radialmenu lopen nu ook via
-ts_bridge 0.0.3. Configversiecontrole wordt door de bridge uitgevoerd. Lees **UPDATE-INSTALLATIE.md** voor de migratie en centrale instellingen.
+ts_bridge 0.0.5. Configversiecontrole wordt door de bridge uitgevoerd. Lees **UPDATE-INSTALLATIE.md** voor de migratie en centrale instellingen.
 De bestaande GitHub-updatecontrole blijft behouden.
 
 ## Vereisten
@@ -30,7 +30,7 @@ De bestaande GitHub-updatecontrole blijft behouden.
 | Onderdeel | Gebruik |
 | --- | --- |
 | FiveM met OneSync | Synchronisatie van spelers en gijzelingen. |
-| `ts_bridge` 0.0.3 | Centrale koppelingen; verplicht. |
+| `ts_bridge` 0.0.5 | Centrale koppelingen; verplicht. |
 | `ox_lib` | UI-provider voor meldingen en radialmenu via de bridge. |
 | `es_extended` (ESX) | Politieagenten herkennen voor de politiemeldingen. |
 | `ox_target` | Vereist bij `Config.Interaction = 'target'` of `'both'`. |
@@ -62,15 +62,15 @@ ensure ts_hostage
 ```
 
 Controleer na het starten de console. Voor deze versie hoort de opstartmelding
-versie **1.1.8** te vermelden.
+versie **1.1.9** te vermelden.
 
-## Bijwerken naar 1.1.8
+## Bijwerken naar 1.1.9
 
 1. Maak een backup van de bestaande resource, inclusief je configuratie.
 2. Stop de resource met `stop ts_hostage`.
 3. Vervang de bestanden door die van de nieuwe versie. Houd de mapnaam `ts_hostage` aan.
 4. Neem je eigen instellingen over in de nieuwe configuratiebestanden.
-5. Controleer of nieuwe configuratieblokken, waaronder `PoliceAlertConfig`, aanwezig zijn.
+5. Neem de nieuwe `Config.Camera` en `Config.AntipunchCompatibility` over; configversie 1.1.9.
 6. Start de resource met `ensure ts_hostage` en controleer de versiemelding.
 
 Bewaar je webhook-URL's uit `server_config.lua`. Zet een oud configuratiebestand
@@ -277,7 +277,7 @@ De repository in de code is `troyscripts/ts_hostage`. Deze update is niet automa
 naar GitHub gepubliceerd; publiceer version.json samen met de nieuwe bronbestanden.
 
 De controle installeert de update niet automatisch. Maak een backup en volg
-[Bijwerken naar 1.1.8](#bijwerken-naar-117) om een nieuwe versie handmatig te installeren.
+[Bijwerken naar 1.1.9](#bijwerken-naar-119) om een nieuwe versie handmatig te installeren.
 
 ## Changelog
 
@@ -371,8 +371,8 @@ Radial-API: https://overextended.dev/docs/ox_lib/Interface/Client/radial
 
 ## Configversie
 
-Scriptversie en configversie staan los van elkaar. Voor 1.1.8 is
-`Config.Version = '1.1.8'` vereist. De serverconsole meldt bij starten of de config
+Scriptversie en configversie staan los van elkaar. Voor 1.1.9 is
+`Config.Version = '1.1.9'` vereist. De serverconsole meldt bij starten of de config
 actueel is. Bij volgende releases blijft de vereiste configversie gelijk zolang
 geen nieuwe indeling nodig is. Een oude config blijft met veilige standaardwaarden
 werken, maar meldt dat je moet bijwerken; de versie wordt niet automatisch overschreven.
@@ -380,3 +380,33 @@ Vervang bij deze update config.lua en neem je eigen instellingen over, of voeg a
 nieuwe velden uit het begin van de meegeleverde config toe en zet daarna de versie.
 server_config.lua heeft geen nieuwe instellingen en hoeft niet vervangen te worden.
 Bewaar eigen webhook-URL's en politie-instellingen.
+
+
+## Nieuw in 1.1.9: gedeelde camera en antipunch
+
+De dader blijft tijdens een actieve gijzeling standaard in first person, ook
+wanneer de richtknop wordt losgelaten. Deze instelling staat in de nieuwe config:
+
+| Instelling | Standaard | Werking |
+| --- | --- | --- |
+| `Camera.ForceFirstPersonOnFoot` | `true` | First person voor de dader tijdens een actieve sessie te voet. |
+| `Camera.ForceFirstPersonInVehicle` | `true` | First person voor de dader tijdens een actieve sessie in een voertuig. |
+| `Camera.Restore` | `true` | Eerdere camera na de laatste bridgeaanvraag herstellen. |
+| `Camera.RestoreDelayMs` | `50` | Herstelvertraging, 0 t/m 60000 ms. |
+| `AntipunchCompatibility` | `true` | Antipunch-noodrem tijdelijk pauzeren; geen pauze van schiet-/slagblokkeringen. |
+
+Het slachtoffer krijgt geen cameraverzoek. `Vehicle.RequireFirstPerson` blijft
+los hiervan controleren dat de dader al vóór het starten first person kiest in
+de auto. Om voertuig-first-person volledig uit te schakelen moeten zowel de
+startvoorwaarde als de cameraforcering worden uitgezet. Voor deze server blijven
+beide standaard aan.
+
+Bij loslaten, omleggen, afbreken of resource-stop worden aanvragen/contexten
+opgeruimd. Antipunch kan first person blijven vasthouden als de speler nog richt.
+Beide scripts moeten dan de nieuwe bridgecamera gebruiken: antipunch 1.8.2 en
+hostage 1.1.9 met bridge 0.0.5. Hostage kan ook zonder antipunch worden gebruikt.
+Oude configs krijgen veilige defaults voor de nieuwe velden en een versiemelding.
+De update bevat alleen de gewijzigde/nieuwe bestanden, geen volledige installatie.
+
+Deze samenwerking is met gesimuleerde FiveM-functies getest; live controles met
+twee spelers en de eigen ambulance-/animatiescripts blijven nodig.
