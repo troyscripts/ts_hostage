@@ -3,7 +3,7 @@ game 'gta5'
 
 author 'TroyScripts'
 description 'Speler-gijzelingen met toetsen/target; vereist ts_bridge 0.0.5'
-version '1.1.9'
+version '1.2.0'
 
 shared_scripts { '@ox_lib/init.lua', 'locales/*.lua', 'locale.lua', 'config.lua', 'bridge_check.lua', 'config_check.lua' }
 client_scripts { 'bridge.lua', 'handsup.lua', 'client.lua', 'radial.lua', 'blade_pose.lua', 'diagnostics.lua' }

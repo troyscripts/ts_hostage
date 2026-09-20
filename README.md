@@ -1,6 +1,6 @@
 # TroyScripts — ts_hostage
 
-**Versie 1.1.9** (vereist ts_bridge 0.0.5) · FiveM · Gijzelingen te voet en in voertuigen
+**Versie 1.2.0** (vereist ts_bridge 0.0.5) · FiveM · Gijzelingen te voet en in voertuigen
 
 Met `ts_hostage` kunnen spelers een andere speler gijzelen, loslaten of omleggen.
 De resource bevat een eigen handen-omhoog-functie, politiemeldingen met locatie
@@ -389,8 +389,8 @@ wanneer de richtknop wordt losgelaten. Deze instelling staat in de nieuwe config
 
 | Instelling | Standaard | Werking |
 | --- | --- | --- |
-| `Camera.ForceFirstPersonOnFoot` | `true` | First person voor de dader tijdens een actieve sessie te voet. |
-| `Camera.ForceFirstPersonInVehicle` | `true` | First person voor de dader tijdens een actieve sessie in een voertuig. |
+| `Camera.ForceFirstPersonOnFoot` | `true` | First person voor de dader tijdens richten in een actieve sessie te voet. |
+| `Camera.ForceFirstPersonInVehicle` | `true` | First person voor de dader tijdens richten in een actieve sessie in een voertuig. |
 | `Camera.Restore` | `true` | Eerdere camera na de laatste bridgeaanvraag herstellen. |
 | `Camera.RestoreDelayMs` | `50` | Herstelvertraging, 0 t/m 60000 ms. |
 | `AntipunchCompatibility` | `true` | Antipunch-noodrem tijdelijk pauzeren; geen pauze van schiet-/slagblokkeringen. |
@@ -410,3 +410,10 @@ De update bevat alleen de gewijzigde/nieuwe bestanden, geen volledige installati
 
 Deze samenwerking is met gesimuleerde FiveM-functies getest; live controles met
 twee spelers en de eigen ambulance-/animatiescripts blijven nodig.
+
+## Camerafix 1.2.0
+
+De camera wordt uitsluitend tijdens het vasthouden van de richtknop aangevraagd.
+Loslaten herstelt de vorige camerastand volgens Camera.Restore en RestoreDelayMs.
+Na beëindigen kan de oude sessie de cameravergrendeling niet opnieuw activeren.
+Configschema blijft 1.1.9; geen config vervangen. Bestaande voertuig-startcontrole blijft gelden.

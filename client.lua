@@ -123,6 +123,7 @@ exports('TakeHostage', function() tryStart('radial') end)
 local function cleanup()
     local s, ped = session, PlayerPedId()
     session, offered = nil, nil
+    Bridge.BusyChanged(false, nil)
     if s then
         if s.active and s.role == 'victim' then HandsUp.Lower() end
         if s.attached then DetachEntity(ped, true, false) end
@@ -131,7 +132,6 @@ local function cleanup()
             SetCurrentPedWeapon(ped, s.previousWeapon, true)
         end
     end
-    Bridge.BusyChanged(false, nil)
 end
 RegisterNetEvent('ts_hostage:notify', function(message, requestId)
     if not serverOnly() or type(message) ~= 'string' then return end
@@ -274,9 +274,11 @@ RegisterKeyMapping('+ts_hostage_release', TSL('client_troyscripts_gijzelaar_losl
 
 CreateThread(function()
     while true do
+        -- Lees de sessie NA Wait: finish kan tijdens het wachten cleanup uitvoeren.
+        -- Een oude sessie mag de zojuist vrijgegeven camera niet opnieuw aanvragen.
+        Wait(session and 0 or 200)
         local s = session
-        if not s then Wait(200) else
-            Wait(0)
+        if s then
             local ped = PlayerPedId()
             Bridge.UpdateCamera(s)
             DisablePlayerFiring(PlayerId(), true)

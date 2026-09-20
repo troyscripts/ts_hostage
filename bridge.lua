@@ -25,10 +25,17 @@ function Bridge.Kill()
 end
 
 local cameraScope
+local function aimHeld(vehicle)
+    -- Lees ook geblokkeerde invoer: de gijzelingspose schakelt INPUT_AIM uit.
+    local function pressed(control)
+        return IsControlPressed(0, control) or IsDisabledControlPressed(0, control)
+    end
+    return pressed(25) or (vehicle and (pressed(68) or pressed(91)))
+end
 function Bridge.UpdateCamera(session)
     local desired
     if session and session.active and session.role == 'captor' and TSBridgeGuard.IsReady()
-        and not Bridge.IsDead(PlayerPedId()) then
+        and not Bridge.IsDead(PlayerPedId()) and aimHeld(session.vehicle) then
         if session.vehicle then
             if Config.Camera.ForceFirstPersonInVehicle then desired = 'vehicle' end
         elseif Config.Camera.ForceFirstPersonOnFoot then desired = 'ped' end

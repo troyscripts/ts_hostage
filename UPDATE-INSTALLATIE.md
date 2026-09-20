@@ -1,34 +1,17 @@
-# Update ts_hostage 1.1.8 → 1.1.9
+# Update naar 1.2.0 vanaf 1.1.9
 
-Deze ZIP bevat alleen gewijzigde/nieuwe bestanden voor een bestaande 1.1.8-installatie.
-Kopieer de map ts_hostage over de bestaande map; laat overige bestanden staan.
-Er hoeven geen bestanden verwijderd te worden.
+1. Maak een backup van ts_hostage.
+2. Zorg dat er geen actieve gijzelingen zijn en stop ts_hostage.
+3. Overschrijf uitsluitend de meegeleverde bestanden in de bestaande ts_hostage-map.
+4. Start ts_hostage opnieuw. De stop ruimt ook eventuele oude camera-aanvragen op.
 
-1. Maak een backup en stop ts_hostage wanneer niemand in een gijzeling zit.
-2. Werk de bridge bij naar 0.0.5 volgens de gezamenlijke stop/startvolgorde.
-3. Kopieer deze update over de bestaande ts_hostage-resource.
-4. Neem eigen instellingen over in de nieuwe config.lua. Nieuwe velden:
-   Config.Camera en Config.AntipunchCompatibility. Config.Version wordt '1.1.9'.
-   Neem eigen aanpassingen aan locales/nl.lua over met behoud van de nieuwe sleutel.
-5. Installeer ook antipunch 1.8.2 voor de samenwerking, als je antipunch gebruikt.
-6. Start eerst providers/ox_lib, dan ts_bridge, ts_antipunch en ts_hostage.
+Geen config vervangen: configversie blijft 1.1.9. ts_bridge en ts_antipunch blijven ongewijzigd.
+De bestaande voertuigcontrole bij het starten blijft gelden.
 
-server_config.lua blijft staan: webhooks en politie-instellingen wijzigen niet.
-Geen databasewijziging. Handen-omhoog, wapens en de mespose blijven behouden.
+Controleer in-game: richten, gijzelen, richtknop loslaten, opnieuw richten en vrijlaten.
+Zonder richtknop hoort je vorige camerastand terug te komen (Camera.Restore = true).
+Controleer daarna ook handmatig wisselen van camera en een tweede gijzeling.
 
-Standaard blijft de dader tijdens een actieve gijzeling in first person:
-- Config.Camera.ForceFirstPersonOnFoot = true
-- Config.Camera.ForceFirstPersonInVehicle = true
-- Config.AntipunchCompatibility = true (pauzeert alleen de melee-noodrem)
-
-De bestaande Config.Vehicle.RequireFirstPerson blijft de camera bij starten
-controleren: de dader kiest vóór het starten zelf first person in de auto.
-Config.Camera regelt het vasthouden van die camera tijdens een actieve sessie.
-Het slachtoffer krijgt geen nieuwe cameraforcering.
-
-Live testen met twee spelers: te voet/auto, met/zonder vastgehouden richtknop,
-loslaten en omleggen, cameraherstel, herladen/melee na loslaten en resource-stop.
-Controller en de gebruikte ambulance-/animatiescripts ook meenemen.
-
-Upload voor GitHub ook version.json met 1.1.9 en het nieuwe manifest, samen met
-alle gewijzigde resourcebestanden. Deze ZIP publiceert niets automatisch.
+Validatie: Lua-syntax en gesimuleerde regressietests geslaagd voor richtinvoer,
+geblokkeerde invoer, voertuigcamera, slachtoffer en beëindiging tijdens Wait.
+Niet live op een FiveM-server getest.

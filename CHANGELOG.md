@@ -1,3 +1,10 @@
+# 1.2.0
+
+- Hersteld: oude sessie kon na Wait opnieuw first person aanvragen nadat de gijzeling was beëindigd.
+- First person tijdens gijzelen alleen zolang de richtknop wordt vastgehouden, ook bij geblokkeerde richtinvoer.
+- Camera en combatcontext worden vóór het opruimen van animaties vrijgegeven.
+- Configschema blijft 1.1.9; ts_bridge en ts_antipunch hoeven niet vervangen te worden.
+
 # Changelog — ts_hostage
 
 ## 1.1.9 — Gedeeld camerabeheer met antipunch
