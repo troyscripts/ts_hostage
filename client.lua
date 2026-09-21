@@ -121,14 +121,24 @@ local function tryStart(mode)
 end
 exports('TakeHostage', function() tryStart('radial') end)
 local function cleanup()
-    local s, ped = session, PlayerPedId()
+    local s = session
+    local ped = s and s.ped or PlayerPedId()
     session, offered = nil, nil
     Bridge.BusyChanged(false, nil)
     if s then
         if s.active and s.role == 'victim' then HandsUp.Lower() end
         if s.attached then DetachEntity(ped, true, false) end
-        if s.anim then StopAnimTask(ped, s.anim.dict, s.anim.clip, -4.0) end
-        if s.role == 'victim' and s.previousWeapon and HasPedGotWeapon(ped, s.previousWeapon, false) then
+        if s.anim then
+            local ownsPose = HostageIsPlayingAnim(ped, s.anim.dict, s.anim.clip, 3)
+            StopAnimTask(ped, s.anim.dict, s.anim.clip, -4.0)
+            if ownsPose and s.active then
+                ClearPedSecondaryTask(ped)
+                -- Alleen onze eigen voetgijzelingspose volledig beëindigen.
+                -- Geen rijtaak, nieuwe ped of inmiddels gestarte politieanimatie wissen.
+                if s.role == 'victim' and not s.vehicle and ped == PlayerPedId() then ClearPedTasks(ped) end
+            end
+        end
+        if s.role == 'victim' and not s.inventoryDisarmed and ped == PlayerPedId() and s.previousWeapon and HasPedGotWeapon(ped, s.previousWeapon, false) then
             SetCurrentPedWeapon(ped, s.previousWeapon, true)
         end
     end
@@ -218,7 +228,11 @@ RegisterNetEvent('ts_hostage:begin', function(id)
     if s.role == 'victim' then
         HandsUp.Lower() -- stop eigen status VOORDAT de hostagepose start
         s.previousWeapon = HostageWeaponHash(GetSelectedPedWeapon(ped))
-        SetCurrentPedWeapon(ped, GetHashKey('WEAPON_UNARMED'), true)
+        -- Laat ox_inventory de eigen wapenstatus en wapentimer opruimen.
+        -- Een native-only wissel kan de inventory met een oud actief wapen achterlaten.
+        s.inventoryDisarmed = GetResourceState('ox_inventory') == 'started'
+        if s.inventoryDisarmed then TriggerEvent('ox_inventory:disarm', true)
+        else SetCurrentPedWeapon(ped, GetHashKey('WEAPON_UNARMED'), true) end
         if not s.vehicle then
             ClearPedTasksImmediately(ped)
             local o = s.profile.attach

@@ -1,5 +1,12 @@
 # 1.2.0
 
+## 1.2.1 — Vrijlaten en wapenstatus
+- Slachtoffer via de officiële ox_inventory-disarmactie ontwapenen.
+- Geen native-only wapenherstel bij gebruik van ox_inventory; speler equipt opnieuw.
+- Eigen secundaire gijzelingstaak en actieve voetpose opruimen bij vrijlaten.
+- Opruiming gebruikt de ped van de sessie en wist geen inmiddels andere animatie.
+- Configversie en configbestanden blijven ongewijzigd.
+
 - Hersteld: oude sessie kon na Wait opnieuw first person aanvragen nadat de gijzeling was beëindigd.
 - First person tijdens gijzelen alleen zolang de richtknop wordt vastgehouden, ook bij geblokkeerde richtinvoer.
 - Camera en combatcontext worden vóór het opruimen van animaties vrijgegeven.
