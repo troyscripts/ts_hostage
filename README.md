@@ -1,6 +1,6 @@
 # TroyScripts — ts_hostage
 
-**Versie 1.2.1** (vereist ts_bridge 0.0.5) · FiveM · Gijzelingen te voet en in voertuigen
+**Versie 1.2.2** (vereist ts_bridge 0.0.5) · FiveM · Gijzelingen te voet en in voertuigen
 
 Met `ts_hostage` kunnen spelers een andere speler gijzelen, loslaten of omleggen.
 De resource bevat een eigen handen-omhoog-functie, politiemeldingen met locatie
@@ -421,3 +421,7 @@ Configschema blijft 1.1.9; geen config vervangen. Bestaande voertuig-startcontro
 ## Wapens na vrijlaten (1.2.1)
 
 Met ox_inventory wordt je wapen opgeborgen bij het gijzelen. Pak het na vrijlaten opnieuw uit de inventory. Zie FIX-INSTALLATIE.md.
+
+## Gedeelde updatecontrole (1.2.2)
+
+De versiecontrole gebruikt nu CheckForUpdates van ts_bridge. Installeer eerst de volledige bridge 1.0.6. Configversie en eigen instellingen blijven gelijk.

@@ -3,7 +3,7 @@ TSBridgeGuard = { ready = false, failed = false }
 local G = TSBridgeGuard
 local resource = GetCurrentResourceName()
 local server = IsDuplicityVersion()
-local required = server and { 'AlertJobs', 'SendWebhook', 'CheckConfigVersion' } or { 'RequestFirstPerson', 'ReleaseFirstPerson', 'SetCombatContext', 'CheckConfigVersion', 'RegisterRadialMenu', 'RemoveRadialMenu', 'Notify', 'IsDead', 'GetTargetResource', 'AddGlobalPlayer', 'AddGlobalVehicle' }
+local required = server and { 'AlertJobs', 'SendWebhook', 'CheckConfigVersion', 'CheckForUpdates' } or { 'RequestFirstPerson', 'ReleaseFirstPerson', 'SetCombatContext', 'CheckConfigVersion', 'RegisterRadialMenu', 'RemoveRadialMenu', 'Notify', 'IsDead', 'GetTargetResource', 'AddGlobalPlayer', 'AddGlobalVehicle' }
 local function fail(reason)
     G.ready, G.failed = false, true
     print((TSL('bridge_check_troy_scripts_gestopt_ts_bridge_controle_mislukt_installeer')):format(resource, reason))

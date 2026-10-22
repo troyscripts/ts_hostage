@@ -1,3 +1,10 @@
+# 1.2.2 — Gedeelde updatecontrole
+
+- Dubbele HTTP- en versiecode vervangen door ts_bridge:CheckForUpdates.
+- Bridgeguard controleert de vereiste export; foutmelding bij geweigerde aanvraag.
+- Bestaande integratietests bijgewerkt voor de centrale config en NUI-meldingen; webhooktransport wordt in de bridge getest.
+- Configschema ongewijzigd. Installeer eerst de volledige bridge 1.0.6.
+
 # 1.2.0
 
 ## 1.2.1 — Vrijlaten en wapenstatus
