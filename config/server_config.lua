@@ -1,4 +1,4 @@
--- ALLEEN server-side geladen. Zet webhook-URL's nooit in config.lua/clientbestanden.
+-- ALLEEN server-side geladen. Zet webhook-URL's nooit in config/config.lua/clientbestanden.
 WebhookConfig = {
     Enabled = true,
     Start = '',   -- Discord-webhook: gijzeling gestart
@@ -6,7 +6,7 @@ WebhookConfig = {
     Username = TSL('server_config_troyscripts_gijzelingen'),
     AvatarUrl = '', -- optioneel: openbare https-link naar je logo
     Screenshots = true, -- vereist screenshot-basic; anders wordt alleen tekst verstuurd
-    -- Timeout, afbeeldingslimiet en wachtrij staan nu in ts_bridge/server_config.lua.
+    -- Timeout, afbeeldingslimiet en wachtrij staan nu in ts_bridge/config/config.lua.
     LogAutomaticRelease = true,
     -- Platformnaam + server-ID worden standaard gelogd.
     -- Voor een RP-naam: vul hier je eigen server-side frameworkkoppeling in.
@@ -26,3 +26,4 @@ PoliceAlertConfig = {
     WaypointSeconds = 60, -- tijd om met G een route naar de laatste melding te zetten
     Position = 'top-right'
 }
+

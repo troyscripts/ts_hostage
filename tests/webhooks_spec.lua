@@ -1,6 +1,6 @@
 -- Hostage owns event content; bridge tests/webhook_lanes_spec.lua and
 -- screenshot_upload_spec.js cover transport, queues, fallback and binary upload.
-dofile('locales/nl.lua'); dofile('locale.lua')
+dofile('locales/nl.lua'); dofile('shared/locale.lua')
 local ready, sent = true, {}
 TSBridgeGuard = { Await = function() return true end, IsReady = function() return ready end }
 function GetHashKey(x) return x end
@@ -9,7 +9,7 @@ exports = { ts_bridge = { SendWebhook = function(_, route, url, payload, options
     sent[#sent + 1] = { route=route, url=url, payload=payload, options=options }
     return true
 end } }
-dofile('config.lua'); dofile('server_config.lua'); dofile('webhooks.lua')
+dofile('config/config.lua'); dofile('config/server_config.lua'); dofile('server/webhooks.lua')
 WebhookConfig.Enabled = true
 WebhookConfig.Start = 'https://discord.com/api/webhooks/123/start_token'
 WebhookConfig.Actions = 'https://discord.com/api/webhooks/456/action_token'
@@ -39,3 +39,4 @@ HostageLog.Event(s, 'start'); assert(#sent == 4)
 WebhookConfig.Enabled = true; ready = false
 HostageLog.Event(s, 'start'); assert(#sent == 4)
 print('PASS: hostage webhook content, routes, identities, reasons, screenshot options and disabled guards; transport tested in bridge')
+

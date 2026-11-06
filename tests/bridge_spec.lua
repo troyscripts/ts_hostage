@@ -1,4 +1,4 @@
-dofile('locales/nl.lua'); dofile('locale.lua')
+dofile('locales/nl.lua'); dofile('shared/locale.lua')
 TSBridgeGuard = { Await = function() return true end, IsReady = function() return true end }
 function PlayerPedId() return 42 end
 local raised = false
@@ -12,7 +12,7 @@ function RegisterNetEvent() end
 function AddEventHandler() end
 TSBridgeConfig = { NotificationDuration = 5000, NotificationTitle = 'default' }
 dofile('../ts_bridge/client/main.lua')
-dofile('config.lua'); dofile('bridge.lua')
+dofile('config/config.lua'); dofile('client/bridge.lua')
 assert(not Bridge.HandsUp(42))
 raised = true; assert(Bridge.HandsUp(42)); assert(not Bridge.HandsUp(99))
 raised = false; assert(not Bridge.HandsUp(42))
@@ -33,3 +33,4 @@ camera = 4; Bridge.Notify('visible'); assert(#shown == 3)
 Config.NotificationCooldownMs = 9000; now = now + 5000; Bridge.Notify('wait'); assert(#shown == 3)
 now = now + 4000; Bridge.Notify('ready'); assert(#shown == 4)
 print('PASS: shared notification limit, neutral title, vehicle silence, configurable cooldown')
+

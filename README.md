@@ -1,6 +1,29 @@
 # TroyScripts — ts_hostage
 
-**Versie 1.2.2** (vereist ts_bridge 0.0.5) · FiveM · Gijzelingen te voet en in voertuigen
+**Versie 1.2.3** (vereist ts_bridge 0.0.5) · FiveM · Gijzelingen te voet en in voertuigen
+
+## Mappen en documentatie
+
+| Pad | Inhoud |
+| --- | --- |
+| `client/` | Clientlogica, hands-up, camera/bridgekoppeling, radialmenu en diagnose |
+| `server/` | Serverlogica, webhookinhoud en updatecontrole |
+| `shared/` | Locale-loader, bridgecontrole en configcontrole |
+| `config/` | Algemene instellingen en uitsluitend server-side geladen webhookinstellingen |
+| `locales/` | Vertalingen; extra taalbestanden worden via `locales/*.lua` geladen |
+| `docs/` | Installatie, migratie, changelog en handleidingen |
+| `docs/archive/` | Historische bestandslijsten en testresultaten |
+| `tests/` | Gesimuleerde regressietests |
+| `integrations/` | Optionele patches voor andere resources |
+
+`fxmanifest.lua` en `version.json` blijven in de hoofdmap voor FiveM en de updatecontrole. Paden in de documentatie zijn relatief aan de resourcehoofdmap, tenzij anders aangegeven.
+
+- [Installatie en migratie naar 1.2.3](docs/UPDATE-INSTALLATIE.md)
+- [Electron AntiCheat en webhookafbeeldingen](docs/electron-anticheat.md)
+- [Bridge-overdracht](docs/BRIDGE-OVERDRACHT.md)
+- [Vertalingen](docs/LOCALES.md)
+- [Historische wapenfix 1.2.1](docs/FIX-INSTALLATIE.md)
+- [Changelog](docs/CHANGELOG.md)
 
 Met `ts_hostage` kunnen spelers een andere speler gijzelen, loslaten of omleggen.
 De resource bevat een eigen handen-omhoog-functie, politiemeldingen met locatie
@@ -13,16 +36,16 @@ om het handvat; dit is een bekende beperking van deze versie.
 
 `Config.Locale = 'nl'` is de standaard. Teksten staan in `locales/nl.lua`.
 Bij ontbrekende taal/sleutel wordt Nederlands gebruikt. Behoud placeholders en opmaakcodes.
-Eigen tekstvelden in server_config.lua blijven voorrang houden.
+Eigen tekstvelden in config/server_config.lua blijven voorrang houden.
 
-`bridge_check.lua` controleert client en server. Zonder een compatibele bridge wordt
+`shared/bridge_check.lua` controleert client en server. Zonder een compatibele bridge wordt
 het script niet actief. Herstart na een bridgeherstart ook ts_hostage; lees de updatehandleiding.
 
 ## Centrale bridge
 
 ESX-jobcontrole, politiemeldingen, targetregistratie, webhooktransport en screenshots lopen
 via ts_bridge. Gewone spelersmeldingen, meldingslimieten en het radialmenu lopen nu ook via
-ts_bridge 0.0.5. Configversiecontrole wordt door de bridge uitgevoerd. Lees **UPDATE-INSTALLATIE.md** voor de migratie en centrale instellingen.
+ts_bridge 0.0.5. Configversiecontrole wordt door de bridge uitgevoerd. Lees **docs/UPDATE-INSTALLATIE.md** voor de migratie en centrale instellingen.
 De bestaande GitHub-updatecontrole blijft behouden.
 
 ## Vereisten
@@ -43,8 +66,8 @@ is bij deze herschrijving niet geverifieerd.
 
 ## Installatie
 
-1. Plaats eerst `ts_bridge` zoals beschreven in UPDATE-INSTALLATIE.md. Plaats daarna de map `ts_hostage` in bijvoorbeeld `resources/[troyscripts]`.
-2. Stel `config.lua` en `server_config.lua` in.
+1. Plaats eerst `ts_bridge` zoals beschreven in docs/UPDATE-INSTALLATIE.md. Plaats daarna de map `ts_hostage` in bijvoorbeeld `resources/[troyscripts]`.
+2. Stel `config/config.lua` en `config/server_config.lua` in.
 3. Voeg onderstaande regels toe aan `server.cfg`. Voeg bestaande startregels niet dubbel toe.
 
 ```cfg
@@ -62,22 +85,15 @@ ensure ts_hostage
 ```
 
 Controleer na het starten de console. Voor deze versie hoort de opstartmelding
-versie **1.1.9** te vermelden.
+versie **1.2.3** te vermelden.
 
-## Bijwerken naar 1.1.9
+## Bijwerken naar 1.2.3
 
-1. Maak een backup van de bestaande resource, inclusief je configuratie.
-2. Stop de resource met `stop ts_hostage`.
-3. Vervang de bestanden door die van de nieuwe versie. Houd de mapnaam `ts_hostage` aan.
-4. Neem je eigen instellingen over in de nieuwe configuratiebestanden.
-5. Neem de nieuwe `Config.Camera` en `Config.AntipunchCompatibility` over; configversie 1.1.9.
-6. Start de resource met `ensure ts_hostage` en controleer de versiemelding.
+Volg [de volledige migratie-instructies](docs/UPDATE-INSTALLATIE.md). Stop het script wanneer er geen actieve gijzelingen zijn, maak een back-up en vervang de volledige resourcemap.
 
-Bewaar je webhook-URL's uit `server_config.lua`. Zet een oud configuratiebestand
-niet blind terug als daardoor nieuwe instellingen ontbreken.
+Neem je oude `config.lua` over naar `config/config.lua` en `server_config.lua` naar `config/server_config.lua`. Behoud het nieuwe manifest en de volledige mappenstructuur. Het configschema blijft **1.1.9**; bestaande instellingen blijven bruikbaar. Bij oudere configs neem je eigen waarden over in de meegeleverde configuratie.
 
-Een resource-stop beëindigt lopende gijzelingen. Voor deze versie is geen
-databasemigratie beschreven.
+Een resource-stop beëindigt lopende gijzelingen. Deze mapwijziging vereist geen databasemigratie.
 
 ## Bediening
 
@@ -115,7 +131,7 @@ slachtoffer instappen is niet ingebouwd.
 
 ## Configuratie
 
-De algemene instellingen staan in `config.lua`.
+De algemene instellingen staan in `config/config.lua`.
 
 | Instelling | Betekenis |
 | --- | --- |
@@ -145,7 +161,7 @@ geen dienststatusfilter.
 - Er wordt geen kaartblip toegevoegd.
 
 Pas jobs, tekst, duur en positie aan via `PoliceAlertConfig` in
-`server_config.lua`. Zet `PoliceAlertConfig.Enabled = false` om de melding
+`config/server_config.lua`. Zet `PoliceAlertConfig.Enabled = false` om de melding
 uit te schakelen.
 
 ### Locatie en waypoint
@@ -163,11 +179,11 @@ Er wordt niet automatisch een route ingesteld. De toets kan via de
 FiveM-toetsinstellingen worden aangepast; de melding noemt standaard G.
 
 Bij bijwerken naar deze locatiefunctionaliteit moeten ook het bijgewerkte
-`fxmanifest.lua` en `police_alert.lua` worden meegenomen.
+`fxmanifest.lua` en de bestanden in de submappen worden meegenomen. `client/police_alert.lua` is een ongebruikt compatibiliteitsbestand; politiemeldingen lopen via ts_bridge.
 
 ## Discord-logging
 
-Vul de webhook-URL's uitsluitend in `server_config.lua` in, bij de bestaande
+Vul de webhook-URL's uitsluitend in `config/server_config.lua` in, bij de bestaande
 velden `Start` en `Actions`:
 
 ```lua
@@ -273,11 +289,10 @@ De GitHub-updatecontrole uit versie **1.1.4** blijft behouden. Bij het starten
 controleert de resource of een nieuwere versie beschikbaar is. Wanneer dat zo is,
 verschijnt een melding in de serverconsole met een GitHub-link om de update op te halen.
 
-De repository in de code is `troyscripts/ts_hostage`. Deze update is niet automatisch
-naar GitHub gepubliceerd; publiceer version.json samen met de nieuwe bronbestanden.
+De repository in de code is `troyscripts/ts_hostage`. Publiceer bij toekomstige releases `version.json` samen met de nieuwe bronbestanden.
 
 De controle installeert de update niet automatisch. Maak een backup en volg
-[Bijwerken naar 1.1.9](#bijwerken-naar-119) om een nieuwe versie handmatig te installeren.
+[Bijwerken naar 1.2.3](#bijwerken-naar-123) om een nieuwe versie handmatig te installeren.
 
 ## Changelog
 
@@ -287,7 +302,7 @@ De controle installeert de update niet automatisch. Maak een backup en volg
 - Veilige opruiming bij bridge-uitval en duidelijke consolemelding.
 - Aanpasbare locales/nl.lua, NL als standaard en fallback.
 - Bestaande gijzelingslogica en GitHub-updatecontrole behouden.
-- Volledige historie: zie CHANGELOG.md.
+- Volledige historie: zie docs/CHANGELOG.md.
 
 ### 1.1.2 — Locatie en waypoint
 
@@ -376,9 +391,9 @@ Scriptversie en configversie staan los van elkaar. Voor 1.1.9 is
 actueel is. Bij volgende releases blijft de vereiste configversie gelijk zolang
 geen nieuwe indeling nodig is. Een oude config blijft met veilige standaardwaarden
 werken, maar meldt dat je moet bijwerken; de versie wordt niet automatisch overschreven.
-Vervang bij deze update config.lua en neem je eigen instellingen over, of voeg alle
+Vervang bij deze update config/config.lua en neem je eigen instellingen over, of voeg alle
 nieuwe velden uit het begin van de meegeleverde config toe en zet daarna de versie.
-server_config.lua heeft geen nieuwe instellingen en hoeft niet vervangen te worden.
+config/server_config.lua heeft geen nieuwe instellingen en hoeft niet vervangen te worden.
 Bewaar eigen webhook-URL's en politie-instellingen.
 
 
@@ -420,8 +435,9 @@ Configschema blijft 1.1.9; geen config vervangen. Bestaande voertuig-startcontro
 
 ## Wapens na vrijlaten (1.2.1)
 
-Met ox_inventory wordt je wapen opgeborgen bij het gijzelen. Pak het na vrijlaten opnieuw uit de inventory. Zie FIX-INSTALLATIE.md.
+Met ox_inventory wordt je wapen opgeborgen bij het gijzelen. Pak het na vrijlaten opnieuw uit de inventory. Zie docs/FIX-INSTALLATIE.md.
 
 ## Gedeelde updatecontrole (1.2.2)
 
 De versiecontrole gebruikt nu CheckForUpdates van ts_bridge. Installeer eerst de volledige bridge 1.0.6. Configversie en eigen instellingen blijven gelijk.
+

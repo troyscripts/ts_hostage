@@ -1,4 +1,4 @@
-dofile('locales/nl.lua'); dofile('locale.lua')
+dofile('locales/nl.lua'); dofile('shared/locale.lua')
 local ownLocale = Locales.nl
  dofile('../ts_bridge/locales/nl.lua')
  for key, value in pairs(ownLocale) do Locales.nl[key] = value end
@@ -34,7 +34,7 @@ local function request()
  now = now + 2000; call('request', 1, 2, now)
  for i = #emitted, 1, -1 do if emitted[i][1] == 'ts_hostage:offer' then return emitted[i][3] end end
 end
-dofile('server_config.lua')
+dofile('config/server_config.lua')
 function GetResourceState() return 'started' end
 function GetPlayers() return { '1', '2', '3', '4' } end
 exports = { es_extended = { getSharedObject = function()
@@ -53,8 +53,8 @@ setmetatable(exports, { __call = function(_, name, fn) bridgeExports[name] = fn 
 function GetInvokingResource() return 'ts_hostage' end
 
 function GetResourceMetadata() return '1.1.8' end
-dofile('../ts_bridge/config.lua')
-dofile('../ts_bridge/webhook_config.lua')
+dofile('../ts_bridge/config/config.lua')
+dofile('../ts_bridge/config/webhook_config.lua')
 dofile('../ts_bridge/server/main.lua')
 local function alerts()
  local n = 0
@@ -68,7 +68,7 @@ local function alerts()
  end
  return n
 end
-dofile('config.lua'); dofile('server.lua')
+dofile('config/config.lua'); dofile('server/main.lua')
 local id = request(); assert(count('offer') == 1)
 call('accept', 3, id, true); assert(count('prepare') == 0, 'third-party accept')
 call('accept', 2, id, false); assert(count('finish') == 2, 'hands down rejected')
@@ -116,3 +116,4 @@ GetResourceState = function() return 'stopped' end
 commands.ts_hostage_policecheck(0, {'1'}); assert(alerts() == 0, 'missing ESX')
 assert(exports.ts_bridge:AlertJobs({police=true}, {}, {x=0/0,y=0,z=0}, 60) == 0, 'invalid coords')
 print('PASS: standalone, missing ESX, invalid coordinates')
+

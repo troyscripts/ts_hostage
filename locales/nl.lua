@@ -7,7 +7,7 @@ Locales['nl'] = {
     ['radial_release'] = 'Loslaten',
     ['radial_execute'] = 'Omleggen',
     ['config_current'] = '[ts_hostage] Config %s: actueel; vervangen niet nodig.',
-    ['config_outdated'] = '^3[ts_hostage] Config %s; vereist %s. Werk config.lua bij en neem eigen instellingen over. Nieuwe opties gebruiken tijdelijk standaardwaarden.^7',
+    ['config_outdated'] = '^3[ts_hostage] Config %s; vereist %s. Werk config/config.lua bij en neem eigen instellingen over. Nieuwe opties gebruiken tijdelijk standaardwaarden.^7',
     ['blade_pose_ts_mespositie_world_pose_model_as_contact'] = '[ts_mespositie] world-pose model=%s as=%s contact=%.3f,%.3f,%.3f',
     ['bridge_check_troy_scripts_gestopt_ts_bridge_controle_mislukt_installeer'] = '^1[Troy Scripts] %s gestopt: ts_bridge-controle mislukt (%s). Installeer de meegeleverde bridge en start die eerst.^7',
     ['bridge_check_ontbreekt_niet_gestart_of_getstatus_ontbreekt'] = 'ontbreekt, niet gestart of GetStatus ontbreekt',
@@ -116,3 +116,4 @@ Locales['nl'] = {
 }
 
 Locales.nl.camera_invalid_setting = '[ts_hostage] Ongeldige Config.Camera.%s; standaard toegepast: %s.'
+

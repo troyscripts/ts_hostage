@@ -1,3 +1,11 @@
+# 1.2.3 — 2026-11-06
+
+- Client-, server-, shared- en configuratiebestanden in aparte mappen geplaatst.
+- Manifestentries en laadvolgorde bijgewerkt; geheime webhookconfig blijft uitsluitend server-side geladen.
+- Documentatie gebundeld in docs; oudere testresultaten en bestandslijsten staan in docs/archive.
+- Electron AntiCheat-handleiding en migratie-instructies toegevoegd; README-links en testpaden bijgewerkt.
+- Scriptversie en version.json: 1.2.3. Configschema blijft 1.1.9; gameplay en bestaande instellingen behouden.
+
 # 1.2.2 — Gedeelde updatecontrole
 
 - Dubbele HTTP- en versiecode vervangen door ts_bridge:CheckForUpdates.
@@ -135,3 +143,4 @@ van de gameplay of de huidige meshouding in deze versieverhoging.
 Lua-syntax en meegeleverde tests met gesimuleerde natives uitgevoerd. Gebruik van
 gijzelen te voet en in een auto is eerder door de gebruiker bevestigd. Voor deze
 release is geen nieuwe live FiveM- of Discord-test uitgevoerd.
+

@@ -1,4 +1,4 @@
-dofile('locales/nl.lua'); dofile('locale.lua')
+dofile('locales/nl.lua'); dofile('shared/locale.lua')
 local ownLocale = Locales.nl
  dofile('../ts_bridge/locales/nl.lua')
  for key, value in pairs(ownLocale) do Locales.nl[key] = value end
@@ -22,7 +22,7 @@ function GetNameOfZone() return 'CITY' end
 function GetLabelText() return 'Centrum' end
 lib = { notify = function(data) shown = data end }
 function SetNewWaypoint(x, y) waypoint = { x, y } end
-dofile('../ts_bridge/config.lua'); TSBridgeConfig.AlertBlip = false; TSBridgeConfig.AlertLocation.ShowStreet = true
+dofile('../ts_bridge/config/config.lua'); TSBridgeConfig.AlertBlip = false; TSBridgeConfig.AlertLocation.ShowStreet = true
 dofile('../ts_bridge/client/alerts.lua')
 command(); assert(not waypoint)
 source = 65535
@@ -39,3 +39,4 @@ command(); assert(waypoint[1] == 50, 'latest alert wins')
 waypoint = nil; source = 1
 event({}, { x=90, y=90, z=30 }, 60); command(); assert(not waypoint)
 print('PASS: location text, G waypoint, expiry, latest alert, server-only event')
+

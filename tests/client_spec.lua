@@ -1,4 +1,4 @@
-dofile('locales/nl.lua'); dofile('locale.lua')
+dofile('locales/nl.lua'); dofile('shared/locale.lua')
 TSBridgeGuard = { Await = function() return true end, IsReady = function() return true end }
 local commands, notices, requests, events, public = {}, {}, {}, {}, {}
 local now, aiming = 10000, false
@@ -38,7 +38,7 @@ function TriggerServerEvent(...) requests[#requests+1] = {...} end
 exports = setmetatable({ ts_bridge = { GetTargetResource = function() return 'ox_target' end } }, { __call = function(_, name, fn) public[name] = fn end })
 Bridge = { IsDead = function() return false end, Notify = function(s) notices[#notices+1] = s end,
  VehicleFirstPerson = function() return camera == 4 end }
-dofile('config.lua'); dofile('client.lua')
+dofile('config/config.lua'); dofile('client/main.lua')
 local function action() commands['+ts_hostage_action']() end
 local function advance() now = now + 6000 end
 action(); assert(#notices == 0 and #requests == 0, 'E without aiming is silent')
@@ -68,7 +68,7 @@ function AddEventHandler(name, fn) events[name] = fn end
 exports.ts_bridge.RegisterRadialMenu = function(_, data)
  menu = data; root = { menu = data.id, id = data.id }
 end
-dofile('radial.lua')
+dofile('client/radial.lua')
 assert(root.menu == menu.id and #menu.items == 3)
 menu.items[1].onSelect(); assert(#requests == n+3)
 -- Cleanup tested centrally in bridge shared_ui_spec.lua.
@@ -93,3 +93,4 @@ public.ReleaseHostage(); assert(requests[#requests][3] == 'release')
 print('PASS: active hostage execute/release without aiming')
 
 assert(cameraSession and cameraSession.active and cameraSession.role == "captor")
+

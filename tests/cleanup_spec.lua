@@ -1,4 +1,4 @@
-dofile('locales/nl.lua'); dofile('locale.lua')
+dofile('locales/nl.lua'); dofile('shared/locale.lua')
 TSBridgeGuard = { Await = function() return true end, IsReady = function() return true end }
 local commands, notices, requests, events, public = {}, {}, {}, {}, {}
 local now, aiming = 10000, false
@@ -38,7 +38,7 @@ function TriggerServerEvent(...) requests[#requests+1] = {...} end
 exports = setmetatable({ ts_bridge = { GetTargetResource = function() return 'ox_target' end } }, { __call = function(_, name, fn) public[name] = fn end })
 Bridge = { IsDead = function() return false end, Notify = function(s) notices[#notices+1] = s end,
  VehicleFirstPerson = function() return camera == 4 end }
-dofile('config.lua'); dofile('client.lua')
+dofile('config/config.lua'); dofile('client/main.lua')
 local function action() commands['+ts_hostage_action']() end
 local function advance() now = now + 6000 end
 action(); assert(#notices == 0 and #requests == 0, 'E without aiming is silent')
@@ -114,3 +114,4 @@ events['ts_hostage:begin'](102);pose=false
 beforeClear=clears
 events['ts_hostage:finish'](102,false);assert(clears==beforeClear)
 print('PASS: victim repeated release, inventory disarm, no native weapon restore, owned-task cleanup')
+

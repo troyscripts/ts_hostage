@@ -1,4 +1,4 @@
-dofile('locales/nl.lua'); dofile('locale.lua')
+dofile('locales/nl.lua'); dofile('shared/locale.lua')
 local ownLocale = Locales.nl
  dofile('../ts_bridge/locales/nl.lua')
  for key, value in pairs(ownLocale) do Locales.nl[key] = value end
@@ -44,7 +44,7 @@ function GetOffsetFromEntityInWorldCoords(id,x,y,z)
 end
 function SetEntityCoordsNoOffset(_,x,y,z) objectPos={x=x,y=y,z=z} end
 function SetEntityVisible() end
-dofile('config.lua');dofile('blade_pose.lua')
+dofile('config/config.lua');dofile('client/blade_pose.lua')
 local function step(i) local ok,err=coroutine.resume(threads[i]);assert(ok,err) end
 step(1);step(1);step(1)
 local p=GetOffsetFromEntityInWorldCoords(9,0,0,0.295*0.65)
@@ -55,3 +55,4 @@ state=false;step(1);assert(deleted and visible)
 local point,axis=HostageBladeModelPoint({x=-.01,y=-.01,z=-.07},{x=.01,y=.01,z=.295},.65)
 assert(axis=='z' and math.abs(point.z-.19175)<0.00001)
 print('PASS: measured Z-axis, horizontal blade contact at throat, grip separation, cleanup (simulated natives)')
+

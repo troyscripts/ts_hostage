@@ -1,4 +1,4 @@
-dofile('locales/nl.lua'); dofile('locale.lua')
+dofile('locales/nl.lua'); dofile('shared/locale.lua')
 local ownLocale = Locales.nl
  dofile('../ts_bridge/locales/nl.lua')
  for key, value in pairs(ownLocale) do Locales.nl[key] = value end
@@ -29,7 +29,7 @@ function AddEventHandler() end
 exports = function() end
 LocalPlayer = { state = { set = function(_,_,value) state=value end } }
 Bridge = { IsBusy=function() return busy end, IsDead=function() return false end }
-dofile('config.lua');dofile('handsup.lua')
+dofile('config/config.lua');dofile('client/handsup.lua')
 commands['+ts_handsup']();threads[#threads]()
 assert(HandsUp.IsRaised() and state, 'H raises')
 local controls = coroutine.create(threads[1]); assert(coroutine.resume(controls));assert(coroutine.resume(controls));assert(firing==1)
@@ -54,3 +54,4 @@ assert(not state, 'native 0 clears hands-up combat state')
 for _, v in ipairs({ 0, 2, -1, '1', 'true', false }) do assert(HostageBool(v) == false) end
 assert(HostageBool(nil) == false and HostageBool(true) == true and HostageBool(1) == true)
 print('PASS: numeric native 1/0, boolean-ready handshake, hands-down cleanup')
+

@@ -1,4 +1,4 @@
-dofile('locales/nl.lua'); dofile('locale.lua')
+dofile('locales/nl.lua'); dofile('shared/locale.lua')
 TSBridgeGuard = { Await = function() return true end, IsReady = function() return true end }
 function Player() return { state = { set = function() end } } end
 HostageLog = { Snapshot = function() end, Event = function() end }
@@ -31,7 +31,7 @@ local function request()
  now = now + 2000; call('request', 1, 2, now)
  for i = #emitted, 1, -1 do if emitted[i][1] == 'ts_hostage:offer' then return emitted[i][3] end end
 end
-dofile('server_config.lua')
+dofile('config/server_config.lua')
 function GetResourceState() return 'started' end
 function GetPlayers() return { '1', '2', '3', '4' } end
 exports = { es_extended = { getSharedObject = function()
@@ -59,7 +59,7 @@ local function alerts()
  end
  return n
 end
-dofile('config.lua'); dofile('server.lua')
+dofile('config/config.lua'); dofile('server/main.lua')
 local id = request(); assert(count('offer') == 1)
 call('accept', 3, id, true); assert(count('prepare') == 0, 'third-party accept')
 call('accept', 2, id, false); assert(count('finish') == 2, 'hands down rejected')
@@ -94,3 +94,4 @@ local offer = emitted[#emitted][3]
 call('accept', 2, offer, false, 'hands')
 assert(emitted[#emitted][4] == now, 'rejection echoes request ID')
 print('PASS: correlated timeout/rejection and malformed request token')
+

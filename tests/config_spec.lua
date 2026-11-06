@@ -1,4 +1,4 @@
-dofile('locales/nl.lua'); dofile('locale.lua')
+dofile('locales/nl.lua'); dofile('shared/locale.lua')
 function IsDuplicityVersion() return true end
 function GetCurrentResourceName() return 'ts_bridge' end
 function GetInvokingResource() return 'ts_hostage' end
@@ -12,10 +12,11 @@ for k,v in pairs(old) do Locales.nl[k] = v end
 dofile('../ts_bridge/config_version.lua')
 TSBridgeGuard = { Await = function() return true end }
 
-Config = {}; dofile('config_check.lua')
+Config = {}; dofile('shared/config_check.lua')
 assert(Config.Version == nil, 'do not pretend old config has been updated')
 assert(Config.RequireAimOnFoot and Config.NotificationCooldownMs == 5000 and Config.Radial.Enabled)
 Config = { Version = '1.1.9', RequireAimOnFoot = false, NotificationCooldownMs = 8000, Radial = { Enabled = false } }
-dofile('config_check.lua')
+dofile('shared/config_check.lua')
 assert(not Config.RequireAimOnFoot and Config.NotificationCooldownMs == 8000 and not Config.Radial.Enabled)
 print('PASS: old config defaults and preserved user choices')
+
